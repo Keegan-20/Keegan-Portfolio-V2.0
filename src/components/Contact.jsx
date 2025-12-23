@@ -1,7 +1,6 @@
 import { CONTACT_CONTENT } from "../constants/index";
 import { motion, useInView } from "framer-motion";
 import Ksign from "../assets/Ksign.webp";
-import ContactForm from "./ContactForm";
 
 const textVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -44,10 +43,10 @@ const illustrationVariants = {
 const Contact = () => {
   return (
     <>
-      <div className="border border-x-white w-full bg-white mb-8"></div>
+      <div className="border border-x-white dark:border-x-[#2f3136] w-full bg-white mb-8"></div>
 
       <motion.h2
-        className="text-center font-zodiak text-[45px] animate-pulse "
+        className="text-center font-zodiak text-[45px] animate-pulse py-3 "
         initial="hidden"
         whileInView="visible"
         custom={0.4}
@@ -117,10 +116,6 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Contact Form Section */}
-      <section className="py-10">
-        <ContactForm />
-      </section>
 
       <footer className="mt-14  py-4  text-center">
         <p className=" text-xl md:text-3xl font-semibold ">

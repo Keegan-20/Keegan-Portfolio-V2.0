@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
-import mainProfile from "../../public/mainProfile.png";
+import mainProfile from "/mainProfile.png";
 
 const greetings = [
   "Hey", // United States
