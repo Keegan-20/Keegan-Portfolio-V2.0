@@ -5,14 +5,34 @@
 body, html {
   overflow-x: hidden;
   scroll-behavior:smooth;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Hide default cursor on desktop */
+@media (min-width: 768px) {
+  * {
+    cursor: none !important;
+  }
 }
 
 :root{
     font-family: 'Satoshi', sans-serif;
     font-optical-sizing: auto;
-    background: #0e0d0d;
+    --bg-color: #0e0d0d;
+    --text-color: #ffffff;
+    background: var(--bg-color);
     overflow-x: hidden;
-    color: #ffff;
+    color: var(--text-color);
+}
+
+:root.dark {
+    --bg-color: #0e0d0d;
+    --text-color: #ffffff;
+}
+
+:root:not(.dark) {
+    --bg-color: #f8fafc;
+    --text-color: #0f172a;
 }
 
 .will-change-transform {

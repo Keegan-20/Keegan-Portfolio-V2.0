@@ -44,6 +44,8 @@ export const PROJECTS = [
     image: projects1,
     githubLink:"https://github.com/Keegan-20/ImagiFix",
     link: "https://imagi-fix.vercel.app",
+    techStack: ["JavaScript", "HTML5", "CSS3", "PWA"],
+    featured: true,
   },
   {
     name: "YumBites Food",
@@ -51,6 +53,8 @@ export const PROJECTS = [
     image: projects2,
     githubLink:"https://github.com/Keegan-20/YumBites-Food",
     link: "https://yumbites-food.vercel.app",
+    techStack: ["React", "Redux", "Parcel", "API"],
+    featured: true,
   },
   {
     name: "Saas Admin Dashboard",
@@ -58,6 +62,8 @@ export const PROJECTS = [
     image: projects3,
     githubLink: "https://github.com/Keegan-20/Saas-admin-dashboard",
     link: "https://saas-admin-dashboard1.vercel.app",
+    techStack: ["React", "TailwindCSS", "Responsive"],
+    featured: false,
   },
   {
     name: "RecipeHaven",
@@ -66,6 +72,8 @@ export const PROJECTS = [
     image: projects4,
     githubLink: "https://github.com/Keegan-20/RecipeHaven",
     link: "https://recipe-haven.vercel.app",
+    techStack: ["JavaScript", "API", "CSS3"],
+    featured: false,
   },
   {
     name: "Modern Task Manager",
@@ -73,6 +81,8 @@ export const PROJECTS = [
     image: projects5,
     githubLink: "https://github.com/Keegan-20/modern-task-manager",
     link: "https://modern-tasks-manager.vercel.app",
+    techStack: ["React", "Drag & Drop", "LocalStorage"],
+    featured: false,
   },
 
 ];

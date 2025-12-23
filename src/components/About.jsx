@@ -3,6 +3,7 @@ import { ABOUT_ME } from "../constants/index";
 import keeganDp from "../assets/keeganDp.webp";
 import { useRef } from "react";
 import { Download } from "lucide-react";
+import StatsCard from "./StatsCard";
 
 const textVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -100,6 +101,8 @@ const About = () => {
           <Download className="w-5 h-5" />
         </motion.a>
       </motion.div>
+
+   
     </section>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { LINKS } from "../constants";
 import { SquareArrowOutUpRight } from "lucide-react";
 import Logo from "../assets/Logo.webp";
@@ -6,6 +6,18 @@ import { RiCloseFill, RiMenu3Fill } from "@remixicon/react";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = (window.scrollY / totalHeight) * 100;
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
@@ -17,6 +29,10 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 md:bg-none bg-gradient-to-b from-zinc-900 to-zinc-900/10 backdrop-blur-lg md:backdrop-blur-0">
+      {/* Scroll Progress Bar */}
+      <div className="absolute top-0 left-0 h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 transition-all duration-300 ease-out shadow-lg shadow-pink-500/50"
+           style={{ width: `${scrollProgress}%` }}
+      />
       <div className="flex items-center justify-between max-w-7xl mx-auto p-4">
         {/* Logo */}
         <h1>

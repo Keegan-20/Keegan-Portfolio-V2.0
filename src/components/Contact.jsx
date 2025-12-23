@@ -1,6 +1,7 @@
 import { CONTACT_CONTENT } from "../constants/index";
 import { motion, useInView } from "framer-motion";
 import Ksign from "../assets/Ksign.webp";
+import ContactForm from "./ContactForm";
 
 const textVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -114,6 +115,11 @@ const Contact = () => {
           </div>
 
         </div>
+      </section>
+
+      {/* Contact Form Section */}
+      <section className="py-10">
+        <ContactForm />
       </section>
 
       <footer className="mt-14  py-4  text-center">
