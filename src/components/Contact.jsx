@@ -66,6 +66,7 @@ const Contact = () => {
             custom={0.6}
             variants={textVariants}
           >
+            
             {CONTACT_CONTENT.description}
           </motion.p>
         </div>
