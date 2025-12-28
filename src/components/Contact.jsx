@@ -105,7 +105,7 @@ const Contact = () => {
                   whileInView="visible"
                   custom={1.0 + index * 0.2}
                   variants={iconVariants}
-                  className="transition duration-300 hover:text-black"
+                  className="transition duration-300 hover:text-gray-400"
                 >
                   <Icon size={36} />
                 </motion.a>
