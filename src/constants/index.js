@@ -65,16 +65,16 @@ export const PROJECTS = [
     techStack: ["React", "TailwindCSS", "Responsive"],
     featured: false,
   },
-  {
-    name: "RecipeHaven",
-    description:
-      "A responsive recipe website built with HTML, CSS, and Vanilla JavaScript, featuring a search bar powered by TheMealDB API to explore dishes and view detailed recipes effortlessly.",
-    image: projects4,
-    githubLink: "https://github.com/Keegan-20/RecipeHaven",
-    link: "https://recipe-haven.vercel.app",
-    techStack: ["JavaScript", "API", "CSS3"],
-    featured: false,
-  },
+  // {
+  //   name: "RecipeHaven",
+  //   description:
+  //     "A responsive recipe website built with HTML, CSS, and Vanilla JavaScript, featuring a search bar powered by TheMealDB API to explore dishes and view detailed recipes effortlessly.",
+  //   image: projects4,
+  //   githubLink: "https://github.com/Keegan-20/RecipeHaven",
+  //   link: "https://recipe-haven.vercel.app",
+  //   techStack: ["JavaScript", "API", "CSS3"],
+  //   featured: false,
+  // },
   {
     name: "Modern Task Manager",
     description: "A sleek web app for efficient task management with features like drag-and-drop organization, customizable status columns, and task creation, editing, and deletion.",

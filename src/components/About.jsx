@@ -1,6 +1,5 @@
 import { motion, useInView } from "framer-motion";
 import { ABOUT_ME } from "../constants/index";
-import keeganDp from "../assets/keeganDp.webp";
 import { useRef } from "react";
 import { Download } from "lucide-react";
 import StatsCard from "./StatsCard";
@@ -58,10 +57,9 @@ const About = () => {
       >
         
         <motion.img
-          src={keeganDp}
-      
-          alt="keegan profile pic"
-          className="  w-44 h-auto  md:w-[350px] md:h-[400px] rounded-3xl md:rounded-2xl shadow-lg mx-auto md:mt-14"
+          src="/developer.gif"
+          alt="developer illustration"
+          className="  w-56 h-auto  md:w-[450px] md:h-[400px] rounded-2xl md:rounded-lg shadow-lg mx-auto md:mt-14"
         />
       </motion.div>
 

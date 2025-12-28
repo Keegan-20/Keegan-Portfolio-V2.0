@@ -5,7 +5,6 @@ import About from "./components/About";
 import Projects from "./components/Projects";
 import  Skills from "./components/Skills";
 import Contact from "./components/Contact";
-import ThemeToggle from "./components/ThemeToggle";
 import CustomCursor from "./components/CustomCursor";
 import AvailabilityBadge from "./components/AvailabilityBadge";
 
@@ -15,7 +14,6 @@ const App = () => {
       <CustomCursor/>
       <BlurBackground/>
       <Navbar/>
-      <ThemeToggle/>
       <AvailabilityBadge/>
       <main className="antialiased overflow-x-hidden max-w-7xl mx-auto relative z-10">
         <HeroSection/>

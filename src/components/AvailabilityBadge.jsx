@@ -9,19 +9,13 @@ const AvailabilityBadge = () => {
       transition={{ delay: 1.5, duration: 0.5 }}
     >
       <div className="flex items-center gap-2">
-        <motion.div
-          className="w-2 h-2 bg-green-500 rounded-full"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [1, 0.5, 1],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <span className="text-xs md:text-sm font-medium text-green-400">
+        <div className="relative flex h-4 w-4 items-center justify-center">
+          {/* Outer pulsing circle with glow */}
+          <div className="absolute h-4 w-4 animate-pulse rounded-full bg-[#B6E777] shadow-[0_0_8px_rgba(182,231,119,0.8),0_0_16px_rgba(182,231,119,0.6)] dark:shadow-[0_0_8px_rgba(182,231,119,0.8),0_0_16px_rgba(182,231,119,0.5),0_0_24px_rgba(182,231,119,0.3)]"></div>
+          {/* Inner solid circle */}
+          <div className="relative z-10 h-2 w-2 rounded-full bg-[#B6E777]"></div>
+        </div>
+        <span className="text-xs md:text-sm font-medium text-[#b2d87f]">
           Available for work
         </span>
       </div>

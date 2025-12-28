@@ -43,7 +43,7 @@ const illustrationVariants = {
 const Contact = () => {
   return (
     <>
-      <div className="border border-x-white dark:border-x-[#2f3136] w-full bg-white mb-8"></div>
+      <div className="border border-x-[#2f3136] w-full bg-white mb-8"></div>
 
       <motion.h2
         className="text-center font-zodiak text-[45px] animate-pulse py-3 "

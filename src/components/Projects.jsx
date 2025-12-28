@@ -27,7 +27,7 @@ const Projects = () => {
   };
 
   return (
-    <section className="px-6 py-10" id="work">
+    <section className="px-6 py-8" id="work">
       <h2 className="text-4xl md:text-6xl font-medium tracking-tight ">
         Work
       </h2>
@@ -49,7 +49,7 @@ const Projects = () => {
                 {/* Featured Badge */}
                 {project.featured && (
                   <motion.div
-                    className="absolute top-6 left-6 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg z-10"
+                    className="absolute top-1 left-6 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg z-10"
                     initial={{ scale: 0, rotate: -180 }}
                     whileInView={{ scale: 1, rotate: 0 }}
                     transition={{ delay: 0.3, type: "spring" }}

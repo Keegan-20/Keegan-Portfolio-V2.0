@@ -24,7 +24,7 @@ const HeroSection = () => {
   const [isTyping, setIsTyping] = useState(true);
   const nameRef = useRef(null);
   
-  const tagline = "Building Digital Experiences That Feel Like Magic ✨";
+  const tagline = "Building Scalable,User-Focused Web Experiences ✨";
 
   // Optimized interval logic
   const updateGreetingIndex = useCallback(() => {
@@ -47,7 +47,7 @@ const HeroSection = () => {
         setIsTyping(false);
         clearInterval(typingInterval);
       }
-    }, 50);
+    }, 80);
 
     return () => clearInterval(typingInterval);
   }, []);
