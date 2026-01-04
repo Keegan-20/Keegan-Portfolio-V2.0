@@ -74,7 +74,7 @@ const About = () => {
           transition={{ duration: 0.6, ease: "easeInOut" }}
         >
         About Me
-        <div className="h-1 w-32 mt-4 mb-8 bg-white"></div>
+        <div className="h-1 w-32 mt-4 mb-8 bg-white shadow-sm"></div>
       </motion.h2>
 
         <motion.p className="text-lg mb-5" variants={textVariants}>
