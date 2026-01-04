@@ -68,7 +68,7 @@ const Projects = () => {
                       href={project.githubLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-black/50 text-white rounded-full w-10 h-10 flex items-center justify-center transition duration-300 hover:bg-purple-800 hover:scale-110"
+                      className="bg-black/50 text-white rounded-full w-10 h-10 flex items-center justify-center transition duration-300 hover:bg-[#811844] hover:scale-110"
                     >
                       <RiGithubFill size={20} className="cursor-pointer" />
                     </a>
@@ -77,7 +77,7 @@ const Projects = () => {
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-black/50 text-white rounded-full py-2 px-4 md:py-2.5 md:px-4 text-sm cursor-pointer hover:bg-purple-800 text-center inline-flex items-center gap-3 hover:scale-105 transition-transform"
+                      className="bg-black/50 text-white rounded-full py-2 px-4 md:py-2.5 md:px-4 text-sm cursor-pointer hover:bg-[#811844] text-center inline-flex items-center gap-3 hover:scale-105 transition-transform"
                     >
                       <span className="font-medium">Visit</span>
                       <FiArrowUpRight size={20} className="cursor-pointer" />
@@ -106,6 +106,12 @@ const Projects = () => {
                 </p>
                 
                 {/* Image with hover effect */}
+                <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      
+                    >
                 <div className="relative overflow-hidden rounded-lg group/image">
                   <img
                     src={project.image}
@@ -116,6 +122,7 @@ const Projects = () => {
                     <span className="text-white font-medium text-sm">Click to explore →</span>
                   </div>
                 </div>
+                </a>
               </div>
             </div>
           </motion.div>

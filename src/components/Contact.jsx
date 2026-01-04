@@ -120,7 +120,7 @@ const Contact = () => {
 
       <footer className="mt-14  py-4  text-center">
         <p className=" text-xl md:text-3xl font-semibold ">
-          &copy; 2025{" "}
+          &copy; {new Date().getFullYear()}{" "}
           <a
             href="https://www.linkedin.com/in/keegan-colaco20"
             target="_blank"
