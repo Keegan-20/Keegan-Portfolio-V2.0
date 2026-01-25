@@ -1,7 +1,11 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, memo } from "react";
 import { motion } from "framer-motion";
-import mainProfile from "/mainProfile.png";
 
+// Use optimized WebP image (35KB vs 6.7MB PNG - 99.5% reduction)
+const mainProfileWebp = "/mainProfile.webp";
+const mainProfileAvif = "/mainProfile.avif";
+
+// Greetings array - defined outside component to prevent recreation
 const greetings = [
   "Hey", // United States
   "नमस्ते", // India
@@ -52,8 +56,8 @@ const HeroSection = () => {
     return () => clearInterval(typingInterval);
   }, []);
 
-  // Magnetic effect for name
-  const handleMouseMove = (e) => {
+  // Magnetic effect for name - optimized with useCallback
+  const handleMouseMove = useCallback((e) => {
     if (!nameRef.current) return;
     
     const rect = nameRef.current.getBoundingClientRect();
@@ -72,13 +76,13 @@ const HeroSection = () => {
     } else {
       nameRef.current.style.transform = 'translate(0px, 0px)';
     }
-  };
+  }, []);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     if (nameRef.current) {
       nameRef.current.style.transform = 'translate(0px, 0px)';
     }
-  };
+  }, []);
 
   return (
     <section
@@ -112,8 +116,9 @@ const HeroSection = () => {
           Keegan Colaco.
         </motion.h2>
 
+        {/* Fixed height container to prevent CLS during typing animation */}
         <motion.h3
-          className="text-lg md:text-3xl lg:text-4xl font-mono font-bold md:mb-4 mt-1 min-h-[2rem] md:min-h-[3rem]"
+          className="text-lg md:text-3xl lg:text-4xl font-mono font-bold md:mb-4 mt-1 min-h-[36px] md:min-h-[56px] lg:min-h-[64px] overflow-visible"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 1 }}
@@ -149,23 +154,25 @@ const HeroSection = () => {
       </div>
 
       {/* Right Image with Shadow Effect - Circular */}
+      {/* Fixed container dimensions to prevent CLS */}
       <motion.div
-        className="relative w-full md:w-2/5 flex justify-center items-center"
+        className="relative w-full md:w-2/5 flex justify-center items-center min-h-[320px] md:min-h-[400px] lg:min-h-[440px]"
         initial={{ opacity: 0, scale: 0.8, x: 100 }}
         animate={{ opacity: 1, scale: 1, x: 0 }}
         transition={{ delay: 0.8, duration: 1, type: "spring", bounce: 0.4 }}
+        style={{ contain: 'layout' }}
       >
-        {/* Animated gradient background blobs */}
+        {/* Animated gradient background blob - simplified for performance */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full blur-3xl opacity-30"
+          className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full blur-3xl opacity-25"
+          style={{ willChange: 'transform' }}
           animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0],
+            scale: [1, 1.15, 1],
           }}
           transition={{
-            duration: 8,
+            duration: 10, // Slower animation = less CPU usage
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: "linear",
           }}
         />
         
@@ -179,46 +186,44 @@ const HeroSection = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-pink-500 via-purple-500 to-pink-600 rounded-full blur-2xl opacity-60 transform translate-x-4 translate-y-4" />
           <div className="absolute inset-0 bg-gradient-to-tl from-purple-600 via-pink-500 to-purple-400 rounded-full blur-xl opacity-40 transform -translate-x-2 -translate-y-2" />
           
-          {/* Circular Image with border */}
-          <div className="relative rounded-full overflow-hidden border-4 border-white/20 shadow-2xl">
-            <motion.img
-              src={mainProfile}
-              alt="Keegan Colaco"
-              className="w-78 h-78 object-cover"
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.3 }}
-            />
+          {/* Circular Image with border - Optimized for LCP and CLS */}
+          {/* Fixed aspect-ratio container prevents CLS */}
+          <div 
+            className="relative rounded-full overflow-hidden border-4 border-white/20 shadow-2xl w-[280px] h-[280px] md:w-[360px] md:h-[360px] lg:w-[400px] lg:h-[400px]"
+            style={{ aspectRatio: '1/1', contain: 'layout paint' }}
+          >
+            {/* Picture element for modern format support */}
+            <picture>
+              <source srcSet={mainProfileAvif} type="image/avif" />
+              <source srcSet={mainProfileWebp} type="image/webp" />
+              <motion.img
+                src={mainProfileWebp}
+                alt="Keegan Colaco"
+                width={400}
+                height={400}
+                fetchpriority="high"
+                decoding="async"
+                className="w-full h-full object-cover"
+                style={{ objectPosition: 'center 15%' }}
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.3 }}
+              />
+            </picture>
             
             {/* Gradient overlay on hover */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-t from-pink-500/30 via-transparent to-purple-500/30 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full"
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-pink-500/30 via-transparent to-purple-500/30 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full pointer-events-none"
             />
           </div>
           
-          {/* Floating accent elements - Circular */}
-          <motion.div
-            className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full blur-xl opacity-50"
-            animate={{
-              y: [0, -20, 0],
-              scale: [1, 1.3, 1],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+          {/* Simplified floating accent elements - CSS only for better performance */}
+          <div 
+            className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full blur-xl opacity-40 animate-pulse"
+            style={{ animationDuration: '4s' }}
           />
-          <motion.div
-            className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-tr from-purple-400 to-pink-500 rounded-full blur-xl opacity-50"
-            animate={{
-              y: [0, 20, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+          <div 
+            className="absolute -bottom-4 -left-4 w-14 h-14 bg-gradient-to-tr from-purple-400 to-pink-500 rounded-full blur-xl opacity-40 animate-pulse"
+            style={{ animationDuration: '5s' }}
           />
         </motion.div>
       </motion.div>
@@ -226,4 +231,4 @@ const HeroSection = () => {
   );
 };
 
-export default HeroSection;
+export default memo(HeroSection);

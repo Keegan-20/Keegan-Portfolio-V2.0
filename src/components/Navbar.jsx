@@ -1,31 +1,43 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import { LINKS } from "../constants";
 import { SquareArrowOutUpRight } from "lucide-react";
-import Logo from "../assets/Logo.webp";
 import { RiCloseFill, RiMenu3Fill } from "@remixicon/react";
+
+// Optimized logo images
+const logoWebp = "/logo.webp";
+const logoAvif = "/logo.avif";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
+  // Throttled scroll handler for better performance
   useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const progress = (window.scrollY / totalHeight) * 100;
-      setScrollProgress(progress);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const totalHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          const progress = (window.scrollY / totalHeight) * 100;
+          setScrollProgress(progress);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const toggleMenu = () => {
+  const toggleMenu = useCallback(() => {
     setMenuOpen((prev) => !prev);
-  };
+  }, []);
 
-  const handleLinkClick = () => {
+  const handleLinkClick = useCallback(() => {
     setMenuOpen(false);
-  };
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 md:bg-none bg-gradient-to-b from-zinc-900 to-zinc-900/10 backdrop-blur-lg md:backdrop-blur-0">
@@ -37,7 +49,19 @@ const Navbar = () => {
         {/* Logo */}
         <h1>
           <a href="/">
-            <img src={Logo} alt="Logo" className="h-10 md:h-14 my-2" />
+            <picture>
+              <source srcSet={logoAvif} type="image/avif" />
+              <source srcSet={logoWebp} type="image/webp" />
+              <img 
+                src={logoWebp} 
+                alt="Logo" 
+                width={663}
+                height={196}
+                className="h-8 md:h-10 my-2 w-auto" 
+                loading="eager"
+                style={{ aspectRatio: '663/196' }}
+              />
+            </picture>
           </a>
         </h1>
 
@@ -108,4 +132,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default memo(Navbar);

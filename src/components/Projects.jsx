@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { memo } from "react";
 import { PROJECTS } from "../constants/index";
 import { RiGithubFill } from "react-icons/ri";
 import { FiArrowUpRight } from "react-icons/fi";
@@ -36,7 +37,7 @@ const Projects = () => {
         {PROJECTS.map((project, index) => (
           <motion.div
             key={index}
-            className="outer-container w-full md:w-3/4 m-auto relative transition transform flex items-center justify-center group"
+            className="outer-container w-full md:w-3/4 m-auto relative transition flex items-center justify-center group"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -116,7 +117,10 @@ const Projects = () => {
                   <img
                     src={project.image}
                     alt={`${project.name} preview`}
-                    className="w-full object-cover rounded-lg transition-transform duration-500 group-hover/image:scale-105"
+                    width={800}
+                    height={450}
+                    loading="lazy"
+                    className="w-full h-auto object-cover rounded-lg transition-transform duration-500 group-hover/image:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
                     <span className="text-white font-medium text-sm">Click to explore →</span>
@@ -132,4 +136,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default memo(Projects);

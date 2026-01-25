@@ -2,33 +2,108 @@
 @tailwind components;
 @tailwind utilities;
 
-body, html {
-  overflow-x: hidden;
-  scroll-behavior:smooth;
-  transition: background-color 0.5s ease, color 0.5s ease;
+/* ===========================================
+   PERFORMANCE-OPTIMIZED CSS
+   Target: LCP < 2.5s, CLS < 0.1, INP < 200ms
+   =========================================== */
+
+/* Base styles with font fallback for CLS prevention */
+:root {
+  /* System font stack as fallback to prevent FOUT */
+  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
+               'Helvetica Neue', Arial, sans-serif;
+  font-optical-sizing: auto;
+  --bg-color: #0e0d0d;
+  --text-color: #ffffff;
+  background: var(--bg-color);
+  color: var(--text-color);
+  
+  /* Smooth scrolling with reduced motion support */
+  scroll-behavior: smooth;
+  
+  /* Optimize text rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* Hide default cursor on desktop */
-@media (min-width: 768px) {
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body, html {
+  overflow-x: hidden;
+  /* Remove transition - causes unnecessary repaints */
+}
+
+/* Hide default cursor on desktop devices with hover support */
+@media (hover: hover) and (min-width: 768px) {
   * {
     cursor: none !important;
   }
 }
 
-:root{
-    font-family: 'Satoshi', sans-serif;
-    font-optical-sizing: auto;
-    --bg-color: #0e0d0d;
-    --text-color: #ffffff;
-    background: var(--bg-color);
-    overflow-x: hidden;
-    color: var(--text-color);
-}
-
+/* Performance utility classes */
 .will-change-transform {
-    will-change: transform, opacity;
+  will-change: transform;
 }
 
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* GPU acceleration for animations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* CSS containment for layout isolation */
+.contain-layout {
+  contain: layout;
+}
+
+.contain-paint {
+  contain: paint;
+}
+
+.contain-strict {
+  contain: strict;
+}
+
+/* Responsive text sizing */
 .text-responsive {
-    font-size: clamp(1rem, 0.8852rem + 0.3898vw, 1.375rem);
-  }
+  font-size: clamp(1rem, 0.8852rem + 0.3898vw, 1.375rem);
+}
+
+/* Font responsive class for Contact section */
+.font-responsive {
+  font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+}
+
+/* Optimized image loading */
+img {
+  content-visibility: auto;
+}
+
+/* Lazy loaded sections should have minimum height to prevent CLS */
+section {
+  min-height: 100px;
+}
+
+/* Optimize paint for fixed elements */
+.fixed {
+  will-change: transform;
+  transform: translateZ(0);
+}

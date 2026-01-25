@@ -1,3 +1,4 @@
+import { memo } from "react";
 import SkillCard from "./SkillCard"
 import { SKILLS } from "../constants"
 
@@ -28,4 +29,4 @@ const Skills = () => {
   )
 }
 
-export default Skills
+export default memo(Skills)

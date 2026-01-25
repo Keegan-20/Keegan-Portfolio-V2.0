@@ -1,109 +1,99 @@
+import { memo, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { div } from "framer-motion/client";
 
+// Optimized circle variants with GPU-accelerated properties only (transform, opacity)
+// Longer durations reduce CPU usage from animation calculations
 const circleVariants = {
   animate1: {
-    scale: [1, 1.2, 1],
-    x: [0, 100, 0],
-    y: [0, 50, 0],
+    scale: [1, 1.15, 1],
+    x: [0, 80, 0],
+    y: [0, 40, 0],
     transition: {
-      duration: 2,
+      duration: 8, // Increased from 2s - smoother and less CPU intensive
       repeat: Infinity,
-      ease: "easeOut",
+      ease: "linear", // Linear is more efficient than easing functions
     },
   },
-
   animate2: {
     scale: [1, 1.1, 1],
-    x: [0, 120, 0],
-    y: [0, -60, 0],
+    x: [0, -70, 0],
+    y: [0, -50, 0],
     transition: {
-      duration: 2,
+      duration: 10,
       repeat: Infinity,
-      ease: "easeInOut",
+      ease: "linear",
     },
   },
-
   animate3: {
-    scale: [1, 1.3, 1],
-    x: [0, 140, 0],
-    y: [0, 70, 0],
+    scale: [1, 1.2, 1],
+    x: [0, 60, 0],
+    y: [0, 60, 0],
     transition: {
-      duration: 3,
+      duration: 12,
       repeat: Infinity,
-      ease: "easeInOut",
-    },
-  },
-
-  animate4: {
-    scale: [1, 1.4, 1],
-    x: [0, 160, 0],
-    y: [0, -80, 0],
-    transition: {
-      duration: 4,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
-  },
-
-  animate5: {
-    scale: [1, 1.5, 1],
-    x: [0, 180, 0],
-    y: [0, 90, 0],
-    transition: {
-      duration: 3,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
-  },
-
-  animate6: {
-    scale: [1, 1.6, 1],
-    x: [0, 200, 0],
-    y: [0, -100, 0],
-    transition: {
-      duration: 3,
-      repeat: Infinity,
-      ease: "easeInOut",
+      ease: "linear",
     },
   },
 };
 
+// Static version for reduced-motion preference
+const staticStyle = {
+  transform: 'translateZ(0)', // Force GPU layer
+};
+
 const BlurBackground = () => {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    // Check for reduced motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const handler = (e) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
+  // Render static background for users who prefer reduced motion
+  if (prefersReducedMotion) {
+    return (
+      <div 
+        className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none flex justify-center items-center filter blur-[120px] opacity-70"
+        style={{ contain: 'strict' }}
+      >
+        <div className="bg-yellow-500/80 w-[300px] h-[200px] rounded-full absolute" style={staticStyle} />
+        <div className="bg-purple-500/80 w-[320px] h-[220px] rounded-full absolute translate-x-10" style={staticStyle} />
+        <div className="bg-pink-500/80 w-[340px] h-[240px] rounded-full absolute -translate-x-10" style={staticStyle} />
+      </div>
+    );
+  }
+
   return (
-    <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none flex justify-center items-center filter blur-[120px] opacity-80">
+    <div 
+      className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none flex justify-center items-center filter blur-[120px] opacity-70"
+      style={{ contain: 'strict' }} // CSS containment for performance
+    >
+      {/* Reduced to 3 circles with slower, more efficient animations */}
       <motion.div
-        className="bg-yellow-500 w-[350px] h-[250px] rounded-full absolute"
+        className="bg-yellow-500 w-[300px] h-[200px] rounded-full absolute"
+        style={{ willChange: 'transform' }}
         variants={circleVariants}
         animate="animate1"
-      ></motion.div>
+      />
       <motion.div
-        className="bg-orange-500 w-[360px] h-[260px] rounded-full absolute"
+        className="bg-purple-500 w-[320px] h-[220px] rounded-full absolute"
+        style={{ willChange: 'transform' }}
         variants={circleVariants}
         animate="animate2"
-      ></motion.div>
+      />
       <motion.div
-        className="bg-green-500 w-[370px] h-[270px] rounded-full absolute"
+        className="bg-pink-500 w-[340px] h-[240px] rounded-full absolute"
+        style={{ willChange: 'transform' }}
         variants={circleVariants}
         animate="animate3"
-      ></motion.div>
-      <motion.div
-        className="bg-purple-500 w-[380px] h-[280px] rounded-full absolute"
-        variants={circleVariants}
-        animate="animate4"
-      ></motion.div>
-      <motion.div
-        className="bg-blue-500 w-[390px] h-[290px] rounded-full absolute"
-        variants={circleVariants}
-        animate="animate4"
-      ></motion.div>
-      <motion.div
-        className="bg-pink-500 w-[400px] h-[300px] rounded-full absolute"
-        variants={circleVariants}
-        animate="animate4"
-      ></motion.div>
+      />
     </div>
   );
 };
 
-export default BlurBackground;
+export default memo(BlurBackground);

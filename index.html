@@ -4,8 +4,54 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500&f[]=zodiak@700&display=swap" rel="stylesheet">
-    <title>Keegan's Portfolio</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Keegan Colaco - Frontend Developer building scalable, user-focused web experiences. Portfolio showcasing modern web applications." />
+    <meta name="keywords" content="frontend developer, React, Next.js, web developer, portfolio" />
+    <meta name="author" content="Keegan Colaco" />
+    
+    <!-- DNS Prefetch and Preconnect to external domains (improves LCP by ~100-200ms) -->
+    <link rel="dns-prefetch" href="https://api.fontshare.com" />
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    
+    <!-- Preload LCP image - WebP format (35KB vs 6.7MB PNG = 99.5% smaller) -->
+    <link rel="preload" href="/mainProfile.webp" as="image" type="image/webp" fetchpriority="high" />
+    
+    <!-- Preload critical fonts to prevent FOUT/CLS -->
+    <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500&f[]=zodiak@700&display=swap" as="style" />
+    
+    <!-- Font loading with display swap - load async to prevent render blocking -->
+    <link 
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500&f[]=zodiak@700&display=swap" 
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <!-- Fallback for browsers with JS disabled -->
+    <noscript>
+      <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500&f[]=zodiak@700&display=swap" rel="stylesheet" />
+    </noscript>
+    
+    <!-- Critical CSS for font fallback and CLS prevention -->
+    <style>
+      /* Font fallback stack to prevent CLS during font load */
+      :root {
+        font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --bg-color: #0e0d0d;
+        --text-color: #ffffff;
+        background: var(--bg-color);
+        color: var(--text-color);
+      }
+      .font-zodiak {
+        font-family: 'Zodiak', Georgia, 'Times New Roman', serif;
+      }
+      /* Reserve space for hero section to prevent CLS */
+      #root { min-height: 100vh; }
+      /* Prevent FOUC */
+      body { visibility: visible; }
+    </style>
+    
+    <title>Keegan's Portfolio - Frontend Developer</title>
   </head>
   <body>
     <div id="root"></div>

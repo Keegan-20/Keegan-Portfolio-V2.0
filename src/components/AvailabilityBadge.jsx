@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { motion } from "framer-motion";
 
 const AvailabilityBadge = () => {
@@ -23,5 +24,5 @@ const AvailabilityBadge = () => {
   );
 };
 
-export default AvailabilityBadge;
+export default memo(AvailabilityBadge);
 

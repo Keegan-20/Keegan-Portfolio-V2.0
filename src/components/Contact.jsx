@@ -1,5 +1,6 @@
+import { memo } from "react";
 import { CONTACT_CONTENT } from "../constants/index";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import Ksign from "../assets/Ksign.webp";
 
 const textVariants = {
@@ -75,6 +76,9 @@ const Contact = () => {
           <motion.img
             src={Ksign}
             alt="Contact Illustration"
+            width={400}
+            height={300}
+            loading="lazy"
             className="w-3/4 md:w-auto max-w-xs md:max-w-md transition-transform duration-300 ease-in-out"
             initial="hidden"
             whileInView="visible"
@@ -138,4 +142,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default memo(Contact);

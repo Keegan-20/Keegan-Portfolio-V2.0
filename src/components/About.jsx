@@ -1,4 +1,5 @@
 import { motion, useInView } from "framer-motion";
+import { memo } from "react";
 import { ABOUT_ME } from "../constants/index";
 import { useRef } from "react";
 import { Download } from "lucide-react";
@@ -53,12 +54,23 @@ const About = () => {
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
         variants={imageVariants}
+        style={{ contain: 'layout' }}
       >
-        <motion.img
-          src="/developer.gif"
-          alt="developer illustration"
-          className="w-56 h-auto md:w-[450px] md:h-[400px] rounded-2xl md:rounded-lg shadow-lg mx-auto md:mt-14"
-        />
+        {/* Fixed aspect ratio container to prevent CLS */}
+        <div 
+          className="w-56 md:w-[450px] mx-auto md:mt-14"
+          style={{ aspectRatio: '450/400' }}
+        >
+          <motion.img
+            src="/developer.gif"
+            alt="developer illustration"
+            width={450}
+            height={400}
+            loading="lazy"
+            decoding="async"
+            className="w-full h-auto rounded-2xl md:rounded-lg shadow-lg"
+          />
+        </div>
       </motion.div>
 
       <motion.div
@@ -101,4 +113,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default memo(About);
